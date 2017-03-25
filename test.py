@@ -79,6 +79,6 @@ end_time = time()
 cache_run = end_time - start_time
 
 print "No Cache Run: %f seconds\nFirst Caching Run: %f seconds\nCached Run: %f seconds (%d x faster)" % (
-    no_cache_run, first_run, cache_run, int(no_cache_run / cache_run) * 100)
+    no_cache_run, first_run, cache_run, int(no_cache_run / cache_run))
 
 c.clear()
