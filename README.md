@@ -42,9 +42,10 @@ Advanced Usage
 ```python
 from cashier import cache
 
-@cache(cache_file="sample.db", cache_time=7200, cache_length=1000, retry_if_blank=True)
-def complex_function(a,b,c,d):
-    return complex_calculation(a,b,c,d)
+@cache(cache_file="sample.db", cache_time=7200, cache_length=1000, 
+       retry_if_blank=True)
+def complex_function(a, b, c, d):
+    return complex_calculation(a, b, c, d)
 ```
 
 
