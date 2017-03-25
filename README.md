@@ -60,8 +60,10 @@ def complex_function(a,b,c,d):
 Performance Benchmark
 -
 
-No Cache Run: 21.309067 seconds
+For reproducing results, run `python test.py` from the project root.
 
-First Caching Run: 20.555911 seconds
+No Cache Run: **21.309067 seconds**
 
-Cached Run: 0.519505 seconds (41 x faster)
+First Caching Run: **20.555911 seconds**
+
+Cached Run: **0.519505 seconds (41 x faster)**
