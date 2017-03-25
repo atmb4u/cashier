@@ -16,14 +16,14 @@ Installation
 
 Usage
 -----
-
+```python
 from cashier import cache
 
 
 @cache
 def complex_function(a,b,c,d):
     return complex_calculation(a,b,c,d)
-
+```
 
 Advanced Usage
 ---------
