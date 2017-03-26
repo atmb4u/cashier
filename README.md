@@ -51,7 +51,7 @@ def complex_function(a, b, c, d):
 
 `cache_file` : SQLite3 file name to which cached data should be written into (defaults to .cache)
 
-`cache_time` : how long should the data be cached (defaults to 1 day)
+`cache_time` : how long should the data be cached in seconds (defaults to 1 day)
 
 `cache_length` : how many different arguments and corresponding data should be cached (defaults to 10000)
 
