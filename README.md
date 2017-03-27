@@ -1,6 +1,6 @@
 Cashier
 -
-_Caching for python functions_
+_Persistant aching for python functions_
 
 
 Simply add a decorator to a python function and cache the results for future use. Extremely handy when you are dealing with I/O heavy operations which seldom changes or CPU intensive functions as well.
