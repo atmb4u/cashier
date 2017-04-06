@@ -114,11 +114,15 @@ def cache(cache_file=".cache", cache_time=84600, cache_length=10000, retry_if_bl
     """
     def decorator(fn):
         def wrapped(*args, **kwargs):
-            md5_key = md5(str(args).encode('utf8')).hexdigest()
+            key = fn.__name__ + str(dumps(args))
+            md5_key = md5(key.encode('utf8')).hexdigest()
             c = Cashier(cache_file, cache_time, cache_length)
             datum = c.get(md5_key)
             if datum:
-                info = loads(datum)
+                try:
+                    info = loads(datum)
+                except:
+                    info = loads(bytearray(datum.encode('ascii')))
                 if not retry_if_blank:
                     return info
                 elif info:
