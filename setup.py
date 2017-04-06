@@ -12,7 +12,7 @@ base_dir = os.path.dirname(__file__)
 
 setup_args = {
     'name': 'cashier',
-    'version': '1.0',
+    'version': '1.1',
     'url': 'http://atmb4u.github.io/cashier',
     'description': 'Caching for python functions',
     'author': 'Anoop Thomas Mathew',
