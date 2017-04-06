@@ -11,18 +11,18 @@ if data.status_code == 200:
     page = data.content
 else:
     page = ""
-    print "Failed to scrape test urls"
+    print("Failed to scrape test urls")
     exit()
 
 urls = []
 
 
 def getURL(page):
-    start_link = page.find("a href")
+    start_link = page.find(b"a href")
     if start_link == -1:
         return None, 0
-    start_quote = page.find('"', start_link)
-    end_quote = page.find('"', start_quote + 1)
+    start_quote = page.find(b'"', start_link)
+    end_quote = page.find(b'"', start_quote + 1)
     url = page[start_quote + 1: end_quote]
     return url, end_quote
 
@@ -38,7 +38,7 @@ while True:
 
 final_urls = []
 for url in urls:
-    if "http" in url and url not in final_urls:
+    if b"http" in url and url not in final_urls:
         final_urls.append(url)
 
 
@@ -46,7 +46,7 @@ def add(a):
     try:
         return requests.get(a)
     except:
-        print "Scraping failed for %s" % a
+        print("Scraping failed for %s" % a)
         return
 
 
@@ -62,7 +62,7 @@ def add(a):
     try:
         return requests.get(a)
     except:
-        print "Scraping failed for %s" % a
+        print("Scraping failed for %s" % a)
         return
 
 
@@ -77,8 +77,7 @@ for i in final_urls:
     add(i)
 end_time = time()
 cache_run = end_time - start_time
-
-print "No Cache Run: %f seconds\nFirst Caching Run: %f seconds\nCached Run: %f seconds (%d x faster)" % (
-    no_cache_run, first_run, cache_run, int(no_cache_run / cache_run))
+print("No Cache Run: %f seconds\nFirst Caching Run: %f seconds\nCached Run: %f seconds (%d x faster)" % (
+    no_cache_run, first_run, cache_run, int(no_cache_run / cache_run)))
 
 c.clear()

@@ -2,12 +2,14 @@ import os
 import errno
 import sqlite3
 from time import time
-from cPickle import loads, dumps
 try:
-    from thread import get_ident
+    from pickle import loads, dumps
+except ImportError:
+    from pickle import loads, dumps
+try:
+    from _dummy_thread import get_ident
 except ImportError:
     from dummy_thread import get_ident
-import cPickle as pickle
 from hashlib import md5
 
 
@@ -30,7 +32,7 @@ class Cashier(object):
         self.path = os.path.abspath(file_name)
         try:
             open(self.path, 'ab')
-        except OSError, e:
+        except OSError as  e:
             if e.errno != errno.EEXIST or not os.path.isfile(self.path):
                 raise
         self.default_timeout = default_timeout
@@ -65,7 +67,7 @@ class Cashier(object):
             for row in conn.execute(self._get_sql, (key,)):
                 expire = row[1]
                 if expire > time():
-                    rv = loads(str(row[0]))
+                    rv = loads(bytearray(row[0]))
                     break
                 if expire <= time():
                     self.delete(key)
@@ -85,10 +87,13 @@ class Cashier(object):
         If cache default length reached,
         will remove the oldest one and write the new one
         """
-        value = buffer(dumps(value, 2))
+        try:
+            value = buffer(dumps(value, 2))
+        except NameError:
+            value = memoryview(dumps(value, 2))
         with self._get_conn(key) as conn:
-            if conn.execute(self._count_sql).next() >= (self.default_length,):
-                old_key = conn.execute(self._oldest).next()
+            if next(conn.execute(self._count_sql)) >= (self.default_length,):
+                old_key = next(conn.execute(self._oldest))
                 if old_key:
                     self.delete(old_key[0])
             conn.execute(self._set_sql, (key, value, time() + self.default_timeout))
@@ -109,17 +114,17 @@ def cache(cache_file=".cache", cache_time=84600, cache_length=10000, retry_if_bl
     """
     def decorator(fn):
         def wrapped(*args, **kwargs):
-            md5_key = md5(str(args)).hexdigest()
+            md5_key = md5(str(args).encode('utf8')).hexdigest()
             c = Cashier(cache_file, cache_time, cache_length)
             datum = c.get(md5_key)
             if datum:
-                info = pickle.loads(datum)
+                info = loads(datum)
                 if not retry_if_blank:
                     return info
                 elif info:
                     return info
             res = fn(*args, **kwargs)
-            c.set(md5_key, pickle.dumps(res))
+            c.set(md5_key, dumps(res))
             return res
         return wrapped
     return decorator
