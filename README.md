@@ -63,8 +63,8 @@ Performance Benchmark
 
 For reproducing results, run `python test.py` from the project root.
 
-No Cache Run: **11.316153 seconds**
+No Cache Run: **9.932126 seconds**
 
-First Caching Run: **11.063629 seconds**
+First Caching Run: **9.484081 seconds**
 
-Cached Run: **0.057741 seconds (195 x faster)**
+Cached Run: **0.606016 seconds (16 x faster)**
