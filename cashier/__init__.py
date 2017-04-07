@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 import errno
 import sqlite3
@@ -12,6 +13,13 @@ except ImportError:
     from dummy_thread import get_ident
 from hashlib import md5
 
+meta_data = {
+    'version': '1.2',
+    'url': 'http://atmb4u.github.io/cashier',
+    'description': 'Caching for python functions',
+    'author': 'Anoop Thomas Mathew',
+    'license': 'BSD'
+}
 
 class Cashier(object):
     _create_sql = 'CREATE TABLE IF NOT EXISTS bucket (key TEXT PRIMARY KEY, val BLOB, exp FLOAT)'
@@ -29,10 +37,15 @@ class Cashier(object):
         :param default_timeout: expiry for the stored params -> value - Default: 84600
         :param default_length: max length of the cache - oldest gets popped once full - Default length: 10,000
         """
+        self.__author__ = meta_data.get("author")
+        self.__version__ = meta_data.get("version")
+        self.__license__ = meta_data.get("license")
+        self.__description__ = meta_data.get("description")
+        self.__url__ = meta_data.get("url")
         self.path = os.path.abspath(file_name)
         try:
             open(self.path, 'ab')
-        except OSError as  e:
+        except OSError as e:
             if e.errno != errno.EEXIST or not os.path.isfile(self.path):
                 raise
         self.default_timeout = default_timeout
