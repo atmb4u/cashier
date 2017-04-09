@@ -14,7 +14,7 @@ except ImportError:
 from hashlib import md5
 
 meta_data = {
-    'version': '1.3',
+    'version': '1.3.0',
     'url': 'http://atmb4u.github.io/cashier',
     'description': 'Caching for python functions',
     'author': 'Anoop Thomas Mathew',

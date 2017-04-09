@@ -4,7 +4,6 @@
 # some of its features, like package dependencies.
 
 import os
-from cashier import meta_data
 # Compile the list of packages available, because distutils doesn't have
 # an easy way to do this.
 base_dir = os.path.dirname(__file__)
@@ -12,12 +11,12 @@ base_dir = os.path.dirname(__file__)
 
 setup_args = {
     'name': 'cashier',
-    'version': meta_data.get("version"),
-    'url': meta_data.get("version"),
-    'description': meta_data.get("description"),
-    'author': meta_data.get("author"),
+    'version': '1.3',
+    'url': 'http://atmb4u.github.io/cashier',
+    'description': 'Caching for python functions',
+    'author': 'Anoop Thomas Mathew',
     'author_email': 'atmb4u@gmail.com',
-    'license': meta_data.get("license"),
+    'license': 'BSD',
     'include_package_data': True,
     'py_modules': ['cashier/__init__'],
     'classifiers': [
@@ -36,8 +35,5 @@ packages = [
     "cashier",
 ]
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+from distutils.core import setup
 setup(**setup_args)
