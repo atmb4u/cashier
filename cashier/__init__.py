@@ -64,7 +64,7 @@ class Cashier(object):
         if t_id not in self.connection_cache:
             self.connection_cache[t_id] = {}
         if key not in self.connection_cache[t_id]:
-            conn = sqlite3.Connection(self.path, timeout=60)
+            conn = sqlite3.Connection(self.path, timeout=60, check_same_thread=False)
             with conn:
                 conn.execute(self._create_sql)
             self.connection_cache[t_id][key] = conn
