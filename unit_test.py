@@ -3,12 +3,12 @@ from hashlib import md5
 from cachier import Cashier ,cache
 
 class cashier_tests(unittest.TestCases):
-        """class for running unit tests on Cashier"""
-  	def __init__(self):
+"""class for running unit tests on Cashier"""
+    def __init__(self):
     		self.cache_inst = Cashier(file_name="unit_testing")
     		self.cache_inst.clear()
-  
-        def test_CRUD_operation(self):
+    
+    def test_CRUD_operation(self):
   	    """objective :to perform CRUD operations using cashier"""    
     
    	    test_set_1=['test_string_1','special_char_str ^@#$%&#*#%$^',\
@@ -20,14 +20,14 @@ class cashier_tests(unittest.TestCases):
 		  for val in test_set_1 :
 			  key=md5(val.encode('utf8')).hexdigest()
 			  self.cache_inst.set(key,val)
-			  assert("missing value ",self.cache_inst.get(key) not in test_set_1)
+			  assert(self.cache_inst.get(key) in test_set_1,"missing value ")
         
   	          """update operation"""
 		  for val in test_set_1:
 			  index_val=test_set_1.index(val)
 			  key=md5(val.encode('utf8')).hexdigest()
 			  self.cache_inst.set(key,test_set_2[index_val])
-			  assert("missing value",self.cache_inst.get(key) not in test_set_2)
+			  assert(self.cache_inst.get(key) in test_set_2,"missing value")
         
 	  	  """delete operation """
 	  	  for val in test_set_1:
