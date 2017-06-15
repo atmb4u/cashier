@@ -35,6 +35,15 @@ def complex_function(a,b,c,d):
     return complex_calculation(a,b,c,d)
 ```
 
+If you go ahead on the above configuration, following are the default values
+
+* cache_file :  `.cache`
+
+* cache_time : `84600`
+* cache_length : `10000`
+* retry_if_blank : `False`
+
+
 Advanced Usage
 -
 
