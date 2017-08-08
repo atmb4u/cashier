@@ -3,7 +3,8 @@ import requests
 from cashier import cache, Cashier
 from time import time
 
-c = Cashier(file_name="testing")
+TEST_DB_FILENAME = "testing.db"
+c = Cashier(file_name=TEST_DB_FILENAME)
 c.clear()
 
 data = requests.get("https://news.ycombinator.com")
@@ -57,7 +58,7 @@ end_time = time()
 no_cache_run = end_time - start_time
 
 
-@cache("testing", 60, 100, True)
+@cache(TEST_DB_FILENAME, 60, 100, True)
 def add(a):
     try:
         return requests.get(a)
