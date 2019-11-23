@@ -79,7 +79,7 @@ class Cashier(object):
         with self._get_conn(key) as conn:
             for row in conn.execute(self._get_sql, (key,)):
                 expire = row[1]
-                if expire > time():
+                if self.default_timeout == 0 or expire > time():
                     rv = loads(bytearray(row[0]))
                     break
                 if expire <= time():
@@ -105,7 +105,7 @@ class Cashier(object):
         except NameError:
             value = memoryview(dumps(value, 2))
         with self._get_conn(key) as conn:
-            if next(conn.execute(self._count_sql)) >= (self.default_length,):
+            if self.default_length != 0 and next(conn.execute(self._count_sql)) >= self.default_length:
                 old_key = next(conn.execute(self._oldest))
                 if old_key:
                     self.delete(old_key[0])
