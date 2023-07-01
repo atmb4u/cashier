@@ -4,7 +4,7 @@ import errno
 import sqlite3
 from time import time
 try:
-    from pickle import loads, dumps
+    from cPickle import loads, dumps
 except ImportError:
     from pickle import loads, dumps
 try:
