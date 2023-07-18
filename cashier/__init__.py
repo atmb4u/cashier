@@ -4,13 +4,16 @@ import errno
 import sqlite3
 from time import time
 try:
-    from pickle import loads, dumps
+    from cPickle import loads, dumps
 except ImportError:
     from pickle import loads, dumps
 try:
-    from _dummy_thread import get_ident
+    from _thread import get_ident
 except ImportError:
-    from dummy_thread import get_ident
+    try:
+        from _dummy_thread import get_ident
+    except ImportError:
+        from dummy_thread import get_ident
 from hashlib import md5
 
 meta_data = {
